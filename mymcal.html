@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Mortgage Payment Calculator Application</title>
+  <style>
+ {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.result {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result h3 {
+  font-size: 24px;
+  color: #333;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Mortgage Monthly Payment Calculator App!</h1>
+
+    <div class="form-group">
+      <label for="loanAmount">Principal Loan Amount ($):</label>
+      <input type="number" id="loanAmount" placeholder="Enter loan amount" />
+    </div>
+
+    <div class="form-group">
+      <label for="downpayment">Down Payment ($):</label>
+      <input type="number" id="downpayment" placeholder="Enter down payment" />
+    </div>
+
+    <div class="form-group">
+      <label for="interestRate">Annual Interest Rate (%):</label>
+      <input type="number" id="interestRate" placeholder="Enter interest rate" />
+    </div>
+
+    <div class="form-group">
+      <label for="loanTerm">Mortgage Term (years):</label>
+      <input type="number" id="loanTerm" placeholder="Enter term in years" />
+    </div>
+
+    <button id="calculateBtn">Calculate My Monthly Payment</button>
+
+    <div class="result">
+      <h3>Monthly Payment: <span id="monthlyPayment">$0.00</span></h3>
+<p>&copy 2024 GG (ጂጂ) Info Tech Academy </p>
+    </div>
+  </div>
+
+  <script>
+document.getElementById('calculateBtn').addEventListener('click', function () {
+  // Get input values
+  const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+  const downpayment = parseFloat(document.getElementById('downpayment').value);
+  const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+  const loanTerm = parseInt(document.getElementById('loanTerm').value);
+
+  // Validate inputs
+  if (isNaN(loanAmount) || isNaN(downpayment) || isNaN(interestRate) || isNaN(loanTerm)) {
+    alert("Please fill in all fields with valid numbers.");
+    return;
+  }
+
+  // Calculate loan balance after down payment
+  const loanBalance = loanAmount - downpayment;
+
+  // Monthly interest rate (annual rate divided by 12)
+  const monthlyInterestRate = interestRate / 12;
+
+  // Total number of payments (loan term in months)
+  const totalPayments = loanTerm * 12;
+
+  // Mortgage payment formula
+  const monthlyPayment = (loanBalance * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalPayments)) / 
+                         (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
+
+  // Display result (with two decimal places)
+  if (isFinite(monthlyPayment)) {
+    document.getElementById('monthlyPayment').textContent = `$${monthlyPayment.toFixed(2)}`;
+  } else {
+    alert("There was an error in the calculation. Please check your input values.");
+  }
+});
+
+</script>
+
+</body>
+</html>
